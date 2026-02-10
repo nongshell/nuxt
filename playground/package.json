@@ -1,0 +1,16 @@
+{
+  "private": true,
+  "name": "antdv-next-playground",
+  "type": "module",
+  "scripts": {
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@antdv-next/nuxt": "workspace:*",
+    "nuxt": "^4.3.1",
+    "@antdv-next/icons": "^1.0.0",
+    "antdv-next": "^1.0.2"
+  }
+}

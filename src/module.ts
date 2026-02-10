@@ -1,0 +1,79 @@
+import { defineNuxtModule, addPlugin, createResolver, addVitePlugin, addComponent, addServerPlugin } from '@nuxt/kit'
+import dayjs from 'vite-plugin-dayjs'
+import type { ComponentName } from './runtime/components'
+import type { IconName } from './runtime/icons'
+import components from './runtime/components'
+import icons from './runtime/icons'
+
+// Module options TypeScript interface definition
+export interface ModuleOptions {
+  icon?: boolean
+  /**
+   * Components to be included or excluded
+   */
+  exclude?: ComponentName[]
+  /**
+   * Components to be included only
+   */
+  include?: ComponentName[]
+  /**
+   * Icons to be excluded or included
+   */
+  excludeIcons?: IconName[]
+  /**
+   * Icons to be included only
+   */
+  includeIcons?: IconName[]
+  /**
+   * Component prefix
+   * @default 'A'
+   */
+  prefix?: string
+}
+
+const libName = 'antdv-next'
+const iconLibName = `@antdv-next/icons`
+
+export default defineNuxtModule<ModuleOptions>({
+  meta: {
+    name: '@antdv-next/nuxt',
+    configKey: 'antd',
+  },
+  // Default configuration options of the Nuxt module
+  defaults: {
+    icon: false,
+    prefix: 'A',
+  },
+  setup(_options, _nuxt) {
+    _nuxt.options.build.transpile.push(libName)
+
+    components.forEach((comp) => {
+      addComponent({
+        filePath: 'antdv-next',
+        export: comp,
+        name: _options.prefix + comp,
+      })
+    })
+
+    if (_options.icon !== false) {
+      _nuxt.options.build.transpile.push(iconLibName)
+      icons.forEach((icon) => {
+        addComponent({
+          filePath: iconLibName,
+          export: icon,
+          name: icon,
+        })
+      })
+    }
+    const resolver = createResolver(import.meta.url)
+
+    // Do not add the extension since the `.ts` will be transpiled to `.mjs` after `npm run prepack`
+    addPlugin(resolver.resolve('./runtime/plugin'))
+    addServerPlugin(resolver.resolve('./runtime/server'))
+
+    // Check if the builder is Vite
+    if (_nuxt.options.builder === '@nuxt/vite-builder') {
+      addVitePlugin(dayjs())
+    }
+  },
+})
