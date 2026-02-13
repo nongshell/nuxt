@@ -1,97 +1,29 @@
+<script setup lang="ts">
+import { theme } from 'antdv-next'
+
+const dark = ref(false)
+</script>
+
 <template>
-  <a-config-provider :theme="{ zeroRuntime: true }">
-    Nuxt module playground!
-    <a-button type="primary">
-      测试
-    </a-button>
-    <a-alert
-      message="Antdv Next Alert 测试"
-      type="success"
-      show-icon
-    />
-    <a-select style="width: 200px;" />
-    <a-space
-      direction="vertical"
-      :size="16"
-    >
-      <a-space
-        wrap
-        :size="16"
-      >
-        <a-avatar :size="64">
-          <template #icon>
-            <UserOutlined />
-          </template>
-        </a-avatar>
-        <a-avatar size="large">
-          <template #icon>
-            <UserOutlined />
-          </template>
-        </a-avatar>
-        <a-avatar>
-          <template #icon>
-            <UserOutlined />
-          </template>
-        </a-avatar>
-        <a-avatar size="small">
-          <template #icon>
-            <UserOutlined />
-          </template>
-        </a-avatar>
-        <a-avatar :size="14">
-          <template #icon>
-            <UserOutlined />
-          </template>
-        </a-avatar>
-      </a-space>
-      <a-space
-        wrap
-        :size="16"
-      >
-        <a-avatar
-          shape="square"
-          :size="64"
+  <a-config-provider :theme="{ algorithm: dark ? theme.darkAlgorithm : theme.defaultAlgorithm, zeroRuntime: true }">
+    <a-layout style="min-height: 100vh;">
+      <a-layout-header style="display: flex; align-items: center; gap: 12px;">
+        <a-typography-title
+          :level="4"
+          style="margin: 0; color: #fff;"
         >
-          <template #icon>
-            <UserOutlined />
-          </template>
-        </a-avatar>
-        <a-avatar
-          shape="square"
-          size="large"
-        >
-          <template #icon>
-            <UserOutlined />
-          </template>
-        </a-avatar>
-        <a-avatar shape="square">
-          <template #icon>
-            <UserOutlined />
-          </template>
-        </a-avatar>
-        <a-avatar
-          shape="square"
-          size="small"
-        >
-          <template #icon>
-            <UserOutlined />
-          </template>
-        </a-avatar>
-        <a-avatar
-          shape="square"
-          :size="14"
-        >
-          <template #icon>
-            <UserOutlined />
-          </template>
-        </a-avatar>
-      </a-space>
-    </a-space>
-    <TableTest />
-    <a-qrcode
-      error-level="H"
-      value="'https://www.antdv-next.com"
-      icon="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
-    />
+          Antdv Next Nuxt Playground
+        </a-typography-title>
+        <a-switch
+          :checked="dark"
+          checked-children="Dark"
+          un-checked-children="Light"
+          @update:checked="dark = !!$event"
+        />
+      </a-layout-header>
+      <a-layout-content style="padding: 24px;">
+        <NuxtPage />
+      </a-layout-content>
+    </a-layout>
   </a-config-provider>
 </template>

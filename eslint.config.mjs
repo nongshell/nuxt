@@ -16,5 +16,8 @@ export default createConfigForNuxt({
   },
 })
   .append(
-    // your custom flat config here...
+    {
+      // Keep upstream copied basic demos as-is for accurate hydration reproduction.
+      ignores: ['playground/components/basic-demos/**'],
+    },
   )
