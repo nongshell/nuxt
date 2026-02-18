@@ -55,7 +55,7 @@
     "@nuxt/test-utils": "^4.0.0",
     "@types/jsdom": "^27.0.0",
     "@types/node": "latest",
-    "antdv-next": "^1.0.3",
+    "antdv-next": "^1.0.4-beta.2",
     "changelogen": "^0.6.2",
     "eslint": "^9.39.2",
     "jsdom": "^28.1.0",
