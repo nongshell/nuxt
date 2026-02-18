@@ -70,7 +70,7 @@ globalObject.IntersectionObserver = class IntersectionObserver {
 }
 
 const { createSSRApp, defineComponent, h, nextTick } = localRequire(vueModulePath) as typeof import('vue')
-const { renderToString } = localRequire(serverRendererModulePath) as typeof import('@vue/server-renderer')
+const { renderToString } = localRequire(serverRendererModulePath) as typeof import('vue/server-renderer')
 
 type RenderFn = () => ReturnType<typeof import('vue').h>
 
